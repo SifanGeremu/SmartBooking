@@ -3,46 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function Register(Request $request){
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    //Registration Logic 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    $request->validate([
+        'name'=>'required|string|max:255',
+        'email'=>'required|string|email|max:255|unique:users',
+        'password'=>'required|string|min:8|confirmed',
+    ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    $user = User::Create([
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'password'=>bcrypt($request->password),
+    ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    $user->assignRole('user');
+
+    return response()->json(['message'=>'User registered successfully'],201);
+
+    }
+     
+    
+    public function Login(Request $request){
+
+    
+    }
+     public function Logout(Request $request){
+
+    
     }
 }
