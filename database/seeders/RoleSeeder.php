@@ -7,19 +7,14 @@ use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        // Define base roles
+        // Create roles only if they don't exist
         $roles = ['admin', 'user'];
 
-        foreach ($roles as $roleName) {
-            // Create role if it doesn't exist
+        foreach ($roles as $role) {
             Role::firstOrCreate(
-                ['name' => $roleName],
-                ['guard_name' => 'sanctum'] // Important for SPA API
+                ['name' => $role, 'guard_name' => 'api'] // important: api guard
             );
         }
     }
