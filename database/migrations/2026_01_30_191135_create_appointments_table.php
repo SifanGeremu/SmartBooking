@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('create_appointments', function (Blueprint $table) {
-            Schema::create('appointments', function (Blueprint $table) { $table->id(); 
+        Schema::create('appointments', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id') ->constrained('users') ->onDelete('cascade'); 
-             $table->dateTime('date_time'); 
-              $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed']) ->default('pending');
-              $table->text('notes')->nullable(); 
+            $table->dateTime('date_time'); 
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed']) ->default('pending');
+            $table->text('notes')->nullable(); 
+
+            $table->timestamps();
         });
-    });
     }
 
     /**
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('create_appointments');
+        Schema::dropIfExists('appointments');
     }
 };
