@@ -12,3 +12,5 @@ Route::post('/register',[AuthController::class,'Register'])->name('register');
 Route::post('login',[AuthController::class,"Login"])->name('login');
 
 Route::post('logout',[AuthController::class,"Logout"])->name('logout')->middleware('auth:sanctum');
+
+Route::apiResource('appointments', App\Http\Controllers\AppointmentController::class)->middleware('auth:sanctum');
